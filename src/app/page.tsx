@@ -1,0 +1,28 @@
+import HeroSection from "@/components/landing/HeroSection";
+import RolesSection from "@/components/landing/RolesSection";
+import LifecycleSection from "@/components/landing/LifecycleSection";
+import SolutionSection from "@/components/landing/SolutionSection";
+import FeatureHighlightsSection from "@/components/landing/FeatureHighlightsSection";
+import VisionSection from "@/components/landing/VisionSection";
+import ArchitectureSection from "@/components/landing/ArchitectureSection";
+import BenefitsSection from "@/components/landing/BenefitsSection";
+import FooterSection from "@/components/landing/FooterSection";
+
+export default function Home() {
+  return (
+    <div
+      className="bg-white content-stretch flex flex-col items-start relative size-full"
+      data-name="SBE Solutions"
+    >
+      <HeroSection />
+      <RolesSection />
+      <LifecycleSection />
+      <SolutionSection />
+      <FeatureHighlightsSection />
+      <VisionSection />
+      <ArchitectureSection />
+      <BenefitsSection />
+      <FooterSection />
+    </div>
+  );
+}
