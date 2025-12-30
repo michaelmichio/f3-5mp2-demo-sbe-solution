@@ -10,10 +10,7 @@ import FooterSection from "@/components/landing/FooterSection";
 
 export default function Home() {
   return (
-    <div
-      className="bg-white content-stretch flex flex-col items-start relative size-full"
-      data-name="SBE Solutions"
-    >
+    <div className="flex flex-col w-full bg-white font-['Schibsted_Grotesk:Regular',sans-serif]">
       <HeroSection />
       <RolesSection />
       <LifecycleSection />

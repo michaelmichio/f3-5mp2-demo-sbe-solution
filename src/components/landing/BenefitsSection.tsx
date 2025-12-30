@@ -6,6 +6,7 @@ import {
   imgOverlayShadowOverlayBlur1,
   imgOverlayShadowOverlayBlur2,
 } from "@/configs/svg-ulm27";
+import SectionWrapper from "../shared/SectionWrapper";
 
 function BenefitsHeader() {
   return (
@@ -261,6 +262,63 @@ function BenefitsMaskedLayer() {
 }
 
 export default function BenefitsSection() {
+  return (
+    <SectionWrapper id="benefits" containerSize="full">
+      <div className="flex flex-col">
+        <div className="mx-auto w-full max-w-7xl">
+          <BenefitsHeader />
+        </div>
+
+        <div
+          className="content-stretch flex flex-col items-start relative shrink-0 w-full z-[1]"
+          data-name="Container"
+        >
+          <div
+            className="h-[795.94px] relative shrink-0 w-full"
+            data-name="Mask Group"
+          >
+            <div
+              className="absolute content-stretch flex flex-col items-start left-0 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0%_0px] mask-size-[100%_795.94px] right-0 top-0"
+              data-name="Container"
+              style={{ maskImage: `url('${imgContainer1}')` }}
+            >
+              <div
+                className="absolute inset-0 overflow-clip"
+                data-name="Figure"
+              >
+                <div
+                  className="absolute h-[795.94px] left-0 overflow-clip top-0 w-full"
+                  data-name="Container"
+                >
+                  <div
+                    className="absolute h-[915px] left-0 top-[-119.27px] w-full"
+                    data-name="Picture ƒ+' filters:format(webp):quality(85)"
+                  >
+                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                      <img
+                        alt=""
+                        className="absolute h-[120.61%] left-0 max-w-none top-[-10.31%] w-full"
+                        src={imgPictureFiltersFormatWebpQuality85}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="h-[795.94px]">
+                <div className="absolute grid grid-cols-1 md:grid-cols-3 gap-10 w-full max-w-7xl mx-auto inset-[250px_0_250px_0px] items-center justify-center">
+                  <BenefitCardDecision />
+                  <BenefitCardDecision />
+                  <BenefitCardDecision />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </SectionWrapper>
+  );
+
   return (
     <div
       className="mx-auto w-full max-w-[1440px] content-stretch flex flex-col isolate items-start relative shrink-0 w-full"

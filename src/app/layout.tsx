@@ -3,6 +3,7 @@ import "./globals.css";
 import { inter, openSans } from "./fonts";
 import { RevealOnScroll } from "@/components/shared/RevealOnScroll";
 import SmoothScroll from "@/components/shared/SmoothScroll";
+import Header from "@/components/shared/Header";
 // import Header from "@/components/shared/Header";
 // import Footer from "@/components/shared/Footer";
 
@@ -21,7 +22,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${openSans.variable} antialiased`}>
         <SmoothScroll>
           <RevealOnScroll />
-          {/* <Header /> */}
+          <Header />
           {children}
           {/* <Footer /> */}
         </SmoothScroll>

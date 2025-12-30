@@ -1,3 +1,5 @@
+import SectionWrapper from "../shared/SectionWrapper";
+
 const imgChatGptImageDec262025120338Pm1 =
   "/assets/image/55b0350aea2976fb73ce6d08f0fdd49e1883d765.png";
 const imgChatGptImageDec262025120338Pm2 =
@@ -50,7 +52,7 @@ function SectionHeading() {
   );
 }
 
-function ArchitectureCard({ title, description, image }: ArchitectureCardData) {
+function ArchitectureCard({ item }: any) {
   return (
     <div
       className="basis-0 bg-[#f7f7f7] grow min-h-px min-w-px relative shrink-0"
@@ -68,7 +70,7 @@ function ArchitectureCard({ title, description, image }: ArchitectureCardData) {
             <img
               alt=""
               className="absolute max-w-none object-50%-50% object-cover size-full"
-              src={image}
+              src={item.image}
             />
             <div className="absolute bg-[rgba(0,0,0,0.02)] inset-0" />
           </div>
@@ -88,10 +90,10 @@ function ArchitectureCard({ title, description, image }: ArchitectureCardData) {
                   data-name="text"
                 >
                   <p className="font-['Schibsted_Grotesk:SemiBold',sans-serif] font-semibold leading-[1.5] relative shrink-0 text-[#050505] text-[28px] w-full">
-                    {title}
+                    {item.title}
                   </p>
                   <p className="font-['Schibsted_Grotesk:Regular',sans-serif] font-normal leading-[1.6] relative shrink-0 text-[#5b5d63] text-[18px] w-full">
-                    {description}
+                    {item.description}
                   </p>
                 </div>
               </div>
@@ -112,6 +114,22 @@ function ArchitectureCard({ title, description, image }: ArchitectureCardData) {
 }
 
 export default function ArchitectureSection() {
+  return (
+    <SectionWrapper id="architecture">
+      <div className="flex flex-col pt-15 pb-10">
+        <p className="mb-6 text-[1.125rem] leading-[160%]">THE ARCHITECTURE</p>
+        <h1 className="mb-10 text-[3rem] leading-none">
+          Not just products. A{" "}
+          <span className="font-semibold">living system</span>
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {architectureCards.map((item, index) => (
+            <ArchitectureCard key={index} item={item} />
+          ))}
+        </div>
+      </div>
+    </SectionWrapper>
+  );
   return (
     <div
       className="mx-auto w-full max-w-[1440px] bg-white content-stretch flex flex-col gap-[40px] items-start overflow-clip pb-[40px] pt-[60px] px-[100px] relative shrink-0 w-[1440px]"

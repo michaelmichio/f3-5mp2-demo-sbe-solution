@@ -1,4 +1,5 @@
 import svgPaths from "@/configs/svg-k9wnz0zy0s";
+import SectionWrapper from "../shared/SectionWrapper";
 
 function Logo() {
   return (
@@ -216,6 +217,16 @@ function FooterLegal() {
 }
 
 export default function FooterSection() {
+  return (
+    <SectionWrapper id="footer">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-15">
+        <FooterBrand />
+        <FooterColumns />
+        <FooterLegal />
+      </div>
+    </SectionWrapper>
+  );
+
   return (
     <div
       className="mx-auto w-full max-w-[1440px] bg-white content-stretch flex flex-col items-start justify-center overflow-clip px-[100px] py-[60px] relative shrink-0 w-[1440px]"

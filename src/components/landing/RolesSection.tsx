@@ -1,4 +1,6 @@
 import svgPaths from "@/configs/svg-k9wnz0zy0s";
+import SectionWrapper from "../shared/SectionWrapper";
+
 const imgCard = "/assets/image/8184cd9e0cf038f72922027f358b99ee257216f6.png";
 const imgCard1 = "/assets/image/4e9796e10685fcc0a7d5e551afb51303af2fd075.png";
 const imgCard2 = "/assets/image/8521a28802d650fa54f4146c42b5d8b92817f81f.png";
@@ -60,31 +62,6 @@ const roleCards: RoleCardData[] = [
       "absolute bg-gradient-to-b from-[rgba(24,22,22,0)] inset-0 to-[55.05%] to-[rgba(24,22,22,0.3)]",
   },
 ];
-
-function SectionTitle() {
-  return (
-    <div className="content-stretch flex items-start relative shrink-0 w-full">
-      <p className="font-['Schibsted_Grotesk:Regular',sans-serif] font-normal leading-none relative shrink-0 text-[#050505] text-[0px] text-[48px] text-center text-nowrap">
-        <span>{`Start where `}</span>
-        <span className="font-['Schibsted_Grotesk:Bold',sans-serif] font-bold">
-          you are
-        </span>
-      </p>
-    </div>
-  );
-}
-
-function SectionIntro() {
-  return (
-    <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full">
-      <SectionTitle />
-      <p className="font-['Schibsted_Grotesk:Regular',sans-serif] font-normal leading-[1.6] relative shrink-0 text-[#5b5d63] text-[18px] w-[495px]">
-        The BMS Hub ecosystem adapts to your role. Select your profile to see
-        your tailored path
-      </p>
-    </div>
-  );
-}
 
 function PlusIcon() {
   return (
@@ -149,16 +126,23 @@ function RoleCard({
 
 export default function RolesSection() {
   return (
-    <div
-      className="mx-auto w-full max-w-[1440px] bg-white content-stretch flex flex-col gap-[40px] items-start overflow-clip pl-[100px] pr-0 py-[60px] relative shrink-0 w-[1440px]"
-      data-name="container"
-    >
-      <SectionIntro />
-      <div className="content-stretch flex gap-[32px] items-start relative shrink-0 w-full">
-        {roleCards.map((card) => (
-          <RoleCard key={card.title} {...card} />
-        ))}
+    <SectionWrapper id="roles">
+      <div className="flex flex-col py-15 max-w-full gap-10">
+        <div>
+          <h1 className="mb-6 text-[3rem] leading-none">
+            Start where <span className="font-bold">you are</span>
+          </h1>
+          <p className="max-w-full w-123.75 text-[1.125rem] leading-[160%] text-[#5B5D63]">
+            The BMS Hub ecosystem adapts to your role. Select your profile to
+            see your tailored path
+          </p>
+        </div>
+        <div className="content-stretch flex gap-[32px] items-start relative shrink-0 w-full">
+          {roleCards.map((card) => (
+            <RoleCard key={card.title} {...card} />
+          ))}
+        </div>
       </div>
-    </div>
+    </SectionWrapper>
   );
 }

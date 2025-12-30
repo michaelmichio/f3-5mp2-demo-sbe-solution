@@ -10,6 +10,7 @@ const imgFiltersFormatWebpQuality88 =
 const imgFiltersFormatWebpQuality89 =
   "/assets/image/7aff3c872d73d10dcf73c0a28e2c8562040c4a31.png";
 import { imgSvg1 } from "@/configs/svg-ulm27";
+import SectionWrapper from "../shared/SectionWrapper";
 
 function FeatureGridSvg() {
   return (
@@ -548,6 +549,17 @@ function FeatureCardsGrid() {
 
 export default function FeatureHighlightsSection() {
   return (
+    <SectionWrapper id="feature-highlight">
+      <FeatureGridSvg />
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        {data.map((item, index) => (
+          <FeatureHighlightCard key={index} item={item} />
+        ))}
+      </div>
+    </SectionWrapper>
+  );
+
+  return (
     <div
       className="mx-auto w-full max-w-[1440px] content-stretch flex flex-col items-start relative shrink-0 w-full"
       data-name="Container"
@@ -557,3 +569,54 @@ export default function FeatureHighlightsSection() {
     </div>
   );
 }
+
+function FeatureHighlightCard({ item }: any) {
+  return (
+    <div className="flex px-14 py-12 items-start">
+      <div className="">
+        <div className="relative">
+          <img alt="" className="mb-6 aspect-square h-66" src={item.src} />
+          <div className="absolute bg-white inset-0 mix-blend-saturation" />
+        </div>
+        <h1 className="mb-[0.57rem] text-[1.80625rem] font-semibold leading-11">
+          {item.title}
+        </h1>
+        <p className="text=[1.19375rem] leading-7 tracking-[-0.0125rem] text-[#1B1C1D]">
+          {item.description}
+        </p>
+      </div>
+
+      <button className="cursor-pointer bg-[#F4F5F5] rounded-lg p-3">
+        <PlusIcon />
+      </button>
+    </div>
+  );
+}
+
+const data = [
+  {
+    src: imgFiltersFormatWebpQuality85,
+    title: "Live Location Tracking",
+    description: `Terminal uses GPS and other technologies to give you a live map view of every asset in your yard—…`,
+  },
+  {
+    src: imgFiltersFormatWebpQuality86,
+    title: "Dynamic Task Management",
+    description: `The system automatically assigns tasks to yard jockeys based on their location and the highest…`,
+  },
+  {
+    src: imgFiltersFormatWebpQuality87,
+    title: "Real-Time Status Updates",
+    description: `Terminal provides instant updates on the status of every trailer and gate transaction. You'll know if a…`,
+  },
+  {
+    src: imgFiltersFormatWebpQuality88,
+    title: "Seamless Communications",
+    description: `The platform facilitates direct, real-time communication between yard managers, gate…`,
+  },
+  {
+    src: imgFiltersFormatWebpQuality89,
+    title: "Data-Driven Insights",
+    description: `By collecting and analyzing real-time data, Terminal YOS provides powerful insights into your yard's…`,
+  },
+];
