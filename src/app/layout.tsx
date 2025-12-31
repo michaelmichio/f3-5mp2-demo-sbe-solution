@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { inter, openSans } from "./fonts";
+import { inter, schibstedGrotesk } from "./fonts";
 import { RevealOnScroll } from "@/components/shared/RevealOnScroll";
 import SmoothScroll from "@/components/shared/SmoothScroll";
 import Header from "@/components/shared/Header";
-// import Header from "@/components/shared/Header";
 // import Footer from "@/components/shared/Footer";
 
 export const metadata: Metadata = {
@@ -19,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${openSans.variable} antialiased`}>
+      <body className={`${schibstedGrotesk.variable} antialiased`}>
         <SmoothScroll>
           <RevealOnScroll />
           <Header />

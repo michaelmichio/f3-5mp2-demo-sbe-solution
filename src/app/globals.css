@@ -1,25 +1,5 @@
 @import "tailwindcss";
 
-.font-gilda {
-  font-family: var(--font-gilda-display), ui-serif, Georgia, "Times New Roman",
-    Times, serif;
-}
-
-.font-cormorant {
-  font-family: var(--font-cormorant), ui-serif, Georgia, "Times New Roman",
-    Times, serif;
-}
-
-.font-cormorant-italic {
-  font-family: var(--font-cormorant), ui-serif, Georgia, "Times New Roman",
-    Times, serif;
-  font-style: italic;
-}
-
-.font-open-sans {
-  font-family: var(--font-open-sans);
-}
-
 html {
   scroll-behavior: smooth;
 }

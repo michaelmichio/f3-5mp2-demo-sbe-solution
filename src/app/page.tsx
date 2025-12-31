@@ -10,7 +10,7 @@ import FooterSection from "@/components/landing/FooterSection";
 
 export default function Home() {
   return (
-    <div className="flex flex-col w-full bg-white font-['Schibsted_Grotesk:Regular',sans-serif]">
+    <div className="font-sans flex flex-col w-full bg-white">
       <HeroSection />
       <RolesSection />
       <LifecycleSection />

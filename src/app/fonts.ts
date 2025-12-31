@@ -7,44 +7,19 @@ export const inter = Inter({
   display: "swap",
 });
 
-export const gildaDisplay = localFont({
-  src: "../../public/assets/fonts/GildaDisplay-Regular.ttf",
-  variable: "--font-gilda-display",
-  display: "swap",
-  style: "normal",
-  weight: "400",
-});
-
-export const cormorant = localFont({
-  variable: "--font-cormorant",
-  display: "swap",
+export const schibstedGrotesk = localFont({
   src: [
     {
-      path: "../../public/assets/fonts/CormorantGaramond-VariableFont_wght.ttf",
+      path: "../fonts/SchibstedGrotesk-VariableFont_wght.ttf",
+      weight: "100 900",
       style: "normal",
-      weight: "300 700",
     },
     {
-      path: "../../public/assets/fonts/CormorantGaramond-Italic-VariableFont_wght.ttf",
+      path: "../fonts/SchibstedGrotesk-Italic-VariableFont_wght.ttf",
+      weight: "100 900",
       style: "italic",
-      weight: "300 700",
     },
   ],
-});
-
-export const openSans = localFont({
-  variable: "--font-open-sans",
+  variable: "--font-sans",
   display: "swap",
-  src: [
-    {
-      path: "../../public/assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf",
-      style: "normal",
-      weight: "100 900",
-    },
-    {
-      path: "../../public/assets/fonts/Open_Sans/OpenSans-Italic-VariableFont_wdth,wght.ttf",
-      style: "italic",
-      weight: "100 900",
-    },
-  ],
 });
