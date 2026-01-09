@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
-import svgPaths from "@/configs/svg-k9wnz0zy0s";
+import SectionWrapper from "./SectionWrapper";
+import { Logo } from "@/app/page";
 
 type HeaderTheme = "light" | "dark";
 
@@ -87,7 +87,7 @@ export default function Header() {
     <header
       className={`
         group
-        fixed top-0 left-0 z-50 w-full h-16
+        fixed top-0 left-0 z-50 w-full
         transition-transform duration-300 ease-out
         ${hidden ? "-translate-y-full" : "translate-y-0"}
         ${theme === "dark" ? "text-white" : "text-gray-900"}
@@ -102,7 +102,9 @@ export default function Header() {
           ${
             isOnTop
               ? `opacity-0 group-hover:opacity-100 ${
-                  theme === "dark" ? "bg-white/20" : "bg-white/80"
+                  theme === "dark"
+                    ? "bg-white/20 text-white"
+                    : "bg-white/80 text-gray-900"
                 }`
               : theme === "dark"
               ? "opacity-100 bg-white/20"
@@ -110,85 +112,20 @@ export default function Header() {
           }
         `}
       />
-      <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl flex justify-between items-center py-4 px-5 sm:px-8 lg:px-12 xl:px-16">
         <div className="overflow-hidden">
           <Link href="/">
-            <div
-              className="h-[42px] relative shrink-0 w-[158.4px]"
-              data-name="Logo"
-            >
-              <svg
-                className="block size-full"
-                fill="none"
-                preserveAspectRatio="none"
-                viewBox="0 0 158.4 42"
-              >
-                <g id="Logo">
-                  <path
-                    d={svgPaths.p175ab700}
-                    fill="var(--fill-0, white)"
-                    id="Vector"
-                  />
-                  <path
-                    d={svgPaths.p791c280}
-                    fill="var(--fill-0, white)"
-                    id="Vector_2"
-                  />
-                  <path
-                    d={svgPaths.p17c72200}
-                    fill="var(--fill-0, white)"
-                    id="Vector_3"
-                  />
-                  <path
-                    d={svgPaths.p2ae05200}
-                    fill="var(--fill-0, white)"
-                    id="Vector_4"
-                  />
-                  <path
-                    d={svgPaths.p1d151cc0}
-                    fill="var(--fill-0, white)"
-                    id="Vector_5"
-                  />
-                  <path
-                    d={svgPaths.p384c2c00}
-                    fill="var(--fill-0, white)"
-                    id="Vector_6"
-                  />
-                  <path
-                    d={svgPaths.p39e42f80}
-                    fill="var(--fill-0, white)"
-                    id="Vector_7"
-                  />
-                  <path
-                    d={svgPaths.p1dee0300}
-                    fill="var(--fill-0, white)"
-                    id="Vector_8"
-                  />
-                  <path
-                    d={svgPaths.p33fb6300}
-                    fill="var(--fill-0, white)"
-                    id="Vector_9"
-                  />
-                  <path
-                    d={svgPaths.p392740f0}
-                    fill="var(--fill-0, white)"
-                    id="Vector_10"
-                  />
-                </g>
-              </svg>
-            </div>
+            <Logo color={theme === "dark" ? "#FFFFFF" : "#050505"} />
           </Link>
         </div>
 
-        <div className="flex gap-15">
-          <nav className="hidden items-center gap-10 text-sm md:flex">
-            {NAV_LINKS.map((link) => (
-              <NavLink key={link.label} href={link.href} theme={theme}>
-                {link.label}
-              </NavLink>
-            ))}
-          </nav>
-        </div>
+        <nav className="hidden gap-6 items-center text-sm md:flex">
+          {NAV_LINKS.map((link) => (
+            <NavLink key={link.label} href={link.href} theme={theme}>
+              {link.label}
+            </NavLink>
+          ))}
+        </nav>
       </div>
     </header>
   );
@@ -229,7 +166,7 @@ function NavLink({
             : "hover:text-[#008b8b] after:bg-[#008b8b]"
         }
         after:absolute after:left-0 after:-bottom-0.5
-        after:h-px after:w-full after:origin-left
+        _after:h-px_after:w-full_after:origin-left_
         after:scale-x-0
         after:transition-transform after:duration-300
         ${isActive ? "after:scale-x-100" : "hover:after:scale-x-100"}

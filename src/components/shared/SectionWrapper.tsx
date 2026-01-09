@@ -60,13 +60,13 @@ export default function SectionWrapper({
           alt={imageAlt}
           fill
           priority
-          className="object-cover"
+          className="select-none object-cover"
         />
       )}
 
       {backgroundType === "video" && (
         <video
-          className="absolute inset-0 h-full w-full object-cover"
+          className="select-none absolute inset-0 h-full w-full object-cover"
           src={videoSrc}
           autoPlay
           muted

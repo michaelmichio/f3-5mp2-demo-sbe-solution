@@ -4,6 +4,7 @@ import { inter, schibstedGrotesk } from "./fonts";
 import { RevealOnScroll } from "@/components/shared/RevealOnScroll";
 import SmoothScroll from "@/components/shared/SmoothScroll";
 import Header from "@/components/shared/Header";
+import Footer from "@/components/shared/Footer";
 // import Footer from "@/components/shared/Footer";
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export default function RootLayout({
           <RevealOnScroll />
           <Header />
           {children}
-          {/* <Footer /> */}
+          <Footer />
         </SmoothScroll>
       </body>
     </html>
