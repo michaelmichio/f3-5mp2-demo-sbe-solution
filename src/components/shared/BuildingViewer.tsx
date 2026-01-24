@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader.js";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 
 // const buildingStates: ViewState[] = useMemo(
@@ -634,7 +635,7 @@ const BuildingViewer = () => {
     const pmrem = new THREE.PMREMGenerator(renderer);
     pmrem.compileEquirectangularShader();
 
-    new RGBELoader()
+    new HDRLoader()
       .setPath("/assets/hdr/")
       .load("studio_small_09_1k.hdr", (hdr) => {
         const envMap = pmrem.fromEquirectangular(hdr).texture;
@@ -1149,7 +1150,7 @@ const BuildingViewer = () => {
 
       {/* Debug Camera Overlay */}
       <div className="absolute top-6 right-6 z-30">
-        <div className="bg-slate-900/80 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl overflow-hidden w-[340px]">
+        <div className="bg-slate-900/80 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl overflow-hidden w-85">
           <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
             <p className="text-white font-semibold text-sm">Camera Debug</p>
             <div className="flex gap-2">
@@ -1393,7 +1394,7 @@ const BuildingViewer = () => {
       {/* Progress Bar */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
         <div
-          className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-700 ease-out"
+          className="h-full bg-linear-to-r from-blue-500 to-purple-500 transition-all duration-700 ease-out"
           style={{
             width: `${((currentSection + 1) / buildingStates.length) * 100}%`,
           }}
