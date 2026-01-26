@@ -254,8 +254,7 @@ export default function ObjViewer() {
         const hit = hits.find((item) => {
           const mesh = getMeshFromHit(item.object);
           return (
-            typeof mesh?.name === "string" && mesh.name !== "Plane"
-            // (mesh.name.startsWith("rondo_") || mesh.name.startsWith("non_"))
+            typeof mesh?.name === "string" && mesh.name.startsWith("rondo_")
           );
         });
         const hitMesh = getMeshFromHit(hit?.object ?? null);
