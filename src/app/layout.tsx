@@ -22,9 +22,9 @@ export default function RootLayout({
       <body className={`${schibstedGrotesk.variable} antialiased`}>
         <SmoothScroll>
           <RevealOnScroll />
-          {/* <Header /> */}
+          <Header />
           {children}
-          {/* <Footer /> */}
+          <Footer />
         </SmoothScroll>
       </body>
     </html>

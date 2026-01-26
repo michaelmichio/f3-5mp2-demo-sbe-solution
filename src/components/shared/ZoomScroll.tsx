@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import BuildingViewer from "./BuildingViewer";
+import ObjViewer from "./ObJViewer";
 
 export default function ZoomScroll() {
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -27,7 +28,7 @@ export default function ZoomScroll() {
           end: "+=100%",
           pin: true,
           scrub: true,
-          markers: true,
+          markers: false,
 
           onLeave: () => {
             console.log("x");
@@ -48,7 +49,7 @@ export default function ZoomScroll() {
       tl.to(".x-image-container img", {
         scale: 2,
         z: 350,
-        transformOrigin: "center -0.8%",
+        transformOrigin: "center -0.5%",
         ease: "power1.inOut",
       }).to(
         ".x-section.x-hero",
@@ -69,7 +70,7 @@ export default function ZoomScroll() {
       <div className="x-wrapper">
         <div className="x-content">
           <section className="x-section x-hero">
-            <BuildingViewer />
+            <ObjViewer />
           </section>
         </div>
 
@@ -82,9 +83,9 @@ export default function ZoomScroll() {
         </div>
       </div>
 
-      <div style={{ height: "100vh", background: "#f0f0f0" }}>
+      {/* <div style={{ height: "100vh", background: "#f0f0f0" }}>
         Konten Selanjutnya
-      </div>
+      </div> */}
     </div>
   );
 }

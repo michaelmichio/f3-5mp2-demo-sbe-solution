@@ -12,9 +12,10 @@ import ZoomScroll from "@/components/shared/ZoomScroll";
 export default function Home() {
   return (
     <div className="font-sans flex flex-col w-full overflow-hidden">
+
       <ZoomScroll />
 
-      {/* <HeroSection />
+      {/* <HeroSection /> */}
 
       <RolesSection />
 
@@ -28,7 +29,7 @@ export default function Home() {
 
       <ArchitectureSection />
 
-      <BenefitsSection /> */}
+      <BenefitsSection />
     </div>
   );
 }
