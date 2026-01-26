@@ -6,6 +6,8 @@ import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 
 const CAMERA = { fov: 90, near: 0.1, far: 5000 };
 const ORBIT = { radius: 27, height: 5, speed: 0.001 };
+const ORBIT_START_ANGLE = 0;
+const INTRO = { durationMs: 1800, height: 120, startOffsetZ: 0 };
 const PIVOT = { x: -3, y: 20, z: 3 };
 const SHADOW_AREA = 450;
 const SHADOW_MAP_SIZE = 2048;
@@ -135,6 +137,9 @@ const getMeshFromHit = (obj: THREE.Object3D | null): THREE.Mesh | null => {
   const parent = obj.parent;
   return parent && isMesh(parent) ? parent : null;
 };
+
+const easeInOutCubic = (t: number) =>
+  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
 export default function ObjViewer() {
   const [theme, setTheme] = useState<ThemeName>("light");
@@ -384,6 +389,18 @@ export default function ObjViewer() {
     let originLine: THREE.Line | null = null;
     const pivotPoint = new THREE.Vector3(PIVOT.x, PIVOT.y, PIVOT.z);
     const target = pivotPoint.clone();
+    const introStartPos = new THREE.Vector3(
+      target.x,
+      target.y + INTRO.height,
+      target.z + INTRO.startOffsetZ,
+    );
+    const orbitStartPos = new THREE.Vector3(
+      target.x + Math.cos(ORBIT_START_ANGLE) * ORBIT.radius,
+      target.y + ORBIT.height,
+      target.z + Math.sin(ORBIT_START_ANGLE) * ORBIT.radius,
+    );
+    camera.position.copy(introStartPos);
+    camera.lookAt(target);
 
     if (DEBUG_ORIGIN) {
       const lineMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
@@ -473,6 +490,8 @@ export default function ObjViewer() {
     window.addEventListener("resize", onResize);
 
     let angle = 0;
+    let introStart = 0;
+    let introDone = false;
     let raf = 0;
     const animate = () => {
       if (obj) {
@@ -496,13 +515,29 @@ export default function ObjViewer() {
         }
       }
 
-      angle += ORBIT.speed;
-      const x = target.x + Math.cos(angle) * ORBIT.radius;
-      const z = target.z + Math.sin(angle) * ORBIT.radius;
-      const y = target.y + ORBIT.height;
+      if (!introDone) {
+        const now = performance.now();
+        if (introStart === 0) introStart = now;
+        const elapsed = now - introStart;
+        const t = Math.min(1, elapsed / INTRO.durationMs);
+        const eased = easeInOutCubic(t);
 
-      camera.position.set(x, y, z);
-      camera.lookAt(target);
+        camera.position.lerpVectors(introStartPos, orbitStartPos, eased);
+        camera.lookAt(target);
+
+        if (t >= 1) {
+          introDone = true;
+          angle = ORBIT_START_ANGLE;
+        }
+      } else {
+        angle += ORBIT.speed;
+        const x = target.x + Math.cos(angle) * ORBIT.radius;
+        const z = target.z + Math.sin(angle) * ORBIT.radius;
+        const y = target.y + ORBIT.height;
+
+        camera.position.set(x, y, z);
+        camera.lookAt(target);
+      }
 
       renderer.render(scene, camera);
       raf = requestAnimationFrame(animate);
