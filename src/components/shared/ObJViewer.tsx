@@ -5,15 +5,15 @@ import * as THREE from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 
 const CAMERA = { fov: 90, near: 0.1, far: 5000 };
-const ORBIT = { radius: 27, height: 5, speed: 0.0022 };
+const ORBIT = { radius: 27, height: 5, speed: 0.001 };
 const PIVOT = { x: -3, y: 20, z: 3 };
 const SHADOW_AREA = 450;
 const SHADOW_MAP_SIZE = 2048;
 const EDGE_ANGLE = 12;
-const DEBUG_ORIGIN = true;
+const DEBUG_ORIGIN = false;
 const OBJ_URL = "/assets/model/rondo1_model.obj";
 const TERRAIN_URL = "/assets/model/terrain_map.jpg";
-const FOG = { color: 0xffffff, near: 0, far: 130 };
+const FOG = { color: 0xffffff, near: 0, far: 120 };
 
 const isMesh = (obj: THREE.Object3D): obj is THREE.Mesh =>
   (obj as THREE.Mesh).isMesh === true;
@@ -40,7 +40,7 @@ export default function ObjViewer() {
     });
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(FOG.color, FOG.near, FOG.far)
+    scene.fog = new THREE.Fog(FOG.color, FOG.near, FOG.far);
     const { width, height } = getSize();
 
     const camera = new THREE.PerspectiveCamera(
@@ -68,7 +68,7 @@ export default function ObjViewer() {
     const canvas = renderer.domElement;
     el.appendChild(canvas);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     const topLight = new THREE.DirectionalLight(0xffffff, 3);
     topLight.position.set(0, 1000, 0);
 
@@ -102,6 +102,8 @@ export default function ObjViewer() {
       color: 0x00c6af,
       roughness: 0.75,
       metalness: 0,
+      transparent: true,
+      opacity: 0.5,
     });
 
     const faintMat = new THREE.MeshStandardMaterial({
@@ -204,14 +206,16 @@ export default function ObjViewer() {
           child.receiveShadow = false;
           child.material = isRondo ? baseMat : faintMat;
 
-          const edges = new THREE.LineSegments(
-            new THREE.EdgesGeometry(child.geometry, EDGE_ANGLE),
-            pencilLineMat,
-          );
-          edges.frustumCulled = false;
-          edges.renderOrder = 1;
-          child.add(edges);
-          child.userData.edgeHelper = edges;
+          if (lowerName !== "plane") {
+            const edges = new THREE.LineSegments(
+              new THREE.EdgesGeometry(child.geometry, EDGE_ANGLE),
+              pencilLineMat,
+            );
+            edges.frustumCulled = false;
+            edges.renderOrder = 1;
+            child.add(edges);
+            child.userData.edgeHelper = edges;
+          }
 
           if (lowerName === "plane") {
             child.material = terrainMat;
@@ -249,7 +253,10 @@ export default function ObjViewer() {
         const hits = raycaster.intersectObject(obj, true);
         const hit = hits.find((item) => {
           const mesh = getMeshFromHit(item.object);
-          return typeof mesh?.name === "string" && mesh.name.startsWith("rondo_");
+          return (
+            typeof mesh?.name === "string" && mesh.name !== "Plane"
+            // (mesh.name.startsWith("rondo_") || mesh.name.startsWith("non_"))
+          );
         });
         const hitMesh = getMeshFromHit(hit?.object ?? null);
 
