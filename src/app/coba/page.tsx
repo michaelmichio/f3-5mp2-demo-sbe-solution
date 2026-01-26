@@ -1,5 +1,5 @@
-import BuildingViewer from "@/components/shared/BuildingViewer";
+import ObjViewer from "@/components/shared/ObJViewer";
 
 export default function page() {
-  return <BuildingViewer />;
+  return <ObjViewer />;
 }
