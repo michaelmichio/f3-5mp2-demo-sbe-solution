@@ -5,8 +5,13 @@ html {
 }
 
 body {
-  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", sans-serif;
+  font-family:
+    var(--font-inter),
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -24,7 +29,8 @@ body {
 [data-reveal] {
   opacity: 0;
   transform: translateY(48px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
     filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--delay, 0ms);
@@ -69,4 +75,59 @@ body {
 /* Blur In */
 [data-reveal="blur"] {
   filter: blur(8px);
+}
+
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+.x-wrapper,
+.x-content {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.x-content {
+  overflow: hidden;
+}
+
+.x-content .x-section {
+  width: 100%;
+  height: 100vh;
+}
+
+.x-content .x-section.x-hero {
+  /* background-image: url(https://images.unsplash.com/photo-1589848315097-ba7b903cc1cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+  background: transparent;
+}
+
+.x-image-container {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  perspective: 500px;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.x-image-container.is-hidden {
+  opacity: 0;
+  z-index: -1;
+  visibility: hidden;
+}
+
+.x-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
 }

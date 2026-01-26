@@ -7,11 +7,15 @@ import VisionSection from "@/components/landing/VisionSection";
 import ArchitectureSection from "@/components/landing/ArchitectureSection";
 import BenefitsSection from "@/components/landing/BenefitsSection";
 import svgPaths from "@/configs/svg-k9wnz0zy0s";
+import ZoomScroll from "@/components/shared/ZoomScroll";
 
 export default function Home() {
   return (
-    <div className="font-sans flex flex-col w-full">
-      <HeroSection />
+    <div className="font-sans flex flex-col w-full overflow-hidden">
+
+      <ZoomScroll />
+
+      {/* <HeroSection /> */}
 
       <RolesSection />
 

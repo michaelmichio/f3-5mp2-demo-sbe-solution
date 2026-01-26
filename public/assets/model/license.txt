@@ -1,0 +1,11 @@
+Model Information:
+* title:	Residential Building Set
+* source:	https://sketchfab.com/3d-models/residential-building-set-99a8423808704aa3a43c2fb2492ed109
+* author:	3DHaupt (https://sketchfab.com/dennish2010)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Residential Building Set" (https://sketchfab.com/3d-models/residential-building-set-99a8423808704aa3a43c2fb2492ed109) by 3DHaupt (https://sketchfab.com/dennish2010) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
