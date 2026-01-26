@@ -18,10 +18,13 @@ const THEMES = {
     label: "Light",
     ui: {
       background: "#ffffff",
+      overlay: "none",
+      overlayOpacity: 0,
       buttonBg: "rgba(255, 255, 255, 0.86)",
       buttonText: "#0b0b0b",
       buttonBorder: "rgba(0, 0, 0, 0.12)",
       buttonGlow: "0 10px 24px rgba(0, 0, 0, 0.12)",
+      buttonTextShadow: "none",
     },
     scene: {
       clearColor: 0xffffff,
@@ -35,9 +38,30 @@ const THEMES = {
       rim: { color: 0xffffff, intensity: 0.15 },
     },
     materials: {
-      base: { color: 0xffffff, roughness: 0.98, metalness: 0, opacity: 1 },
-      hover: { color: 0x00c6af, roughness: 0.75, metalness: 0, opacity: 0.5 },
-      faint: { color: 0xffffff, roughness: 1, metalness: 0, opacity: 0.5 },
+      base: {
+        color: 0xffffff,
+        roughness: 0.98,
+        metalness: 0,
+        opacity: 1,
+        emissive: 0x000000,
+        emissiveIntensity: 0,
+      },
+      hover: {
+        color: 0x00c6af,
+        roughness: 0.75,
+        metalness: 0,
+        opacity: 0.5,
+        emissive: 0x000000,
+        emissiveIntensity: 0,
+      },
+      faint: {
+        color: 0xffffff,
+        roughness: 1,
+        metalness: 0,
+        opacity: 0.5,
+        emissive: 0x000000,
+        emissiveIntensity: 0,
+      },
       pencil: { color: 0x808080, opacity: 0.5 },
       terrain: { color: 0xffffff, roughness: 1, metalness: 0 },
     },
@@ -45,29 +69,56 @@ const THEMES = {
   dark: {
     label: "Neo Dark",
     ui: {
-      background: "#070b10",
+      background: "#05070c",
+      overlay:
+        "radial-gradient(900px 520px at 15% 10%, rgba(80, 255, 255, 0.25), transparent 60%), radial-gradient(700px 420px at 85% 20%, rgba(255, 86, 210, 0.2), transparent 55%), radial-gradient(1200px 700px at 60% 120%, rgba(64, 140, 255, 0.18), transparent 65%)",
+      overlayOpacity: 0.85,
       buttonBg: "rgba(8, 14, 20, 0.82)",
       buttonText: "#e8f6ff",
-      buttonBorder: "rgba(94, 214, 255, 0.35)",
-      buttonGlow: "0 0 24px rgba(86, 214, 255, 0.4)",
+      buttonBorder: "rgba(94, 214, 255, 0.45)",
+      buttonGlow:
+        "0 0 18px rgba(120, 255, 250, 0.4), 0 0 32px rgba(255, 86, 210, 0.35)",
+      buttonTextShadow:
+        "0 0 10px rgba(120, 255, 255, 0.7), 0 0 18px rgba(255, 86, 210, 0.5)",
     },
     scene: {
-      clearColor: 0x070b10,
-      fog: { color: 0x0b1118, near: 20, far: 140 },
-      toneMappingExposure: 1.2,
+      clearColor: 0x05070c,
+      fog: { color: 0x070b12, near: 16, far: 150 },
+      toneMappingExposure: 1.35,
     },
     lights: {
-      ambient: { color: 0x6aa7ff, intensity: 0.18 },
-      top: { color: 0x5fd3ff, intensity: 1.4 },
-      sun: { color: 0x4aa6ff, intensity: 2.2 },
-      rim: { color: 0x7fe7ff, intensity: 0.6 },
+      ambient: { color: 0x17324a, intensity: 0.28 },
+      top: { color: 0x4fe7ff, intensity: 2.2 },
+      sun: { color: 0xff4fcf, intensity: 1.6 },
+      rim: { color: 0x9cf6ff, intensity: 0.9 },
     },
     materials: {
-      base: { color: 0x141a21, roughness: 0.72, metalness: 0.15, opacity: 1 },
-      hover: { color: 0x32ffd8, roughness: 0.4, metalness: 0.25, opacity: 0.85 },
-      faint: { color: 0x0a0f14, roughness: 0.9, metalness: 0.1, opacity: 0.35 },
-      pencil: { color: 0x3a5c6b, opacity: 0.55 },
-      terrain: { color: 0x0f141b, roughness: 1, metalness: 0 },
+      base: {
+        color: 0x0b1118,
+        roughness: 0.55,
+        metalness: 0.45,
+        opacity: 1,
+        emissive: 0x0b1c2a,
+        emissiveIntensity: 0.55,
+      },
+      hover: {
+        color: 0x32ffd8,
+        roughness: 0.35,
+        metalness: 0.35,
+        opacity: 0.95,
+        emissive: 0x52ffe7,
+        emissiveIntensity: 0.9,
+      },
+      faint: {
+        color: 0x070b10,
+        roughness: 0.9,
+        metalness: 0.2,
+        opacity: 0.28,
+        emissive: 0x0a1822,
+        emissiveIntensity: 0.35,
+      },
+      pencil: { color: 0x5fd6ff, opacity: 0.7 },
+      terrain: { color: 0x0b1016, roughness: 1, metalness: 0 },
     },
   },
 } as const;
@@ -146,6 +197,8 @@ export default function ObjViewer() {
       baseMat.metalness = nextTheme.materials.base.metalness;
       baseMat.opacity = nextTheme.materials.base.opacity;
       baseMat.transparent = nextTheme.materials.base.opacity < 1;
+      baseMat.emissive.setHex(nextTheme.materials.base.emissive);
+      baseMat.emissiveIntensity = nextTheme.materials.base.emissiveIntensity;
       baseMat.needsUpdate = true;
     }
 
@@ -156,6 +209,8 @@ export default function ObjViewer() {
       hoverMat.metalness = nextTheme.materials.hover.metalness;
       hoverMat.opacity = nextTheme.materials.hover.opacity;
       hoverMat.transparent = nextTheme.materials.hover.opacity < 1;
+      hoverMat.emissive.setHex(nextTheme.materials.hover.emissive);
+      hoverMat.emissiveIntensity = nextTheme.materials.hover.emissiveIntensity;
       hoverMat.needsUpdate = true;
     }
 
@@ -166,6 +221,8 @@ export default function ObjViewer() {
       faintMat.metalness = nextTheme.materials.faint.metalness;
       faintMat.opacity = nextTheme.materials.faint.opacity;
       faintMat.transparent = nextTheme.materials.faint.opacity < 1;
+      faintMat.emissive.setHex(nextTheme.materials.faint.emissive);
+      faintMat.emissiveIntensity = nextTheme.materials.faint.emissiveIntensity;
       faintMat.needsUpdate = true;
     }
 
@@ -531,6 +588,19 @@ export default function ObjViewer() {
         transition: "background-color 240ms ease",
       }}
     >
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 2,
+          background: activeTheme.ui.overlay,
+          opacity: activeTheme.ui.overlayOpacity,
+          mixBlendMode: "screen",
+          pointerEvents: "none",
+          transition: "opacity 240ms ease",
+        }}
+      />
       <button
         type="button"
         onClick={toggleTheme}
@@ -539,7 +609,7 @@ export default function ObjViewer() {
           position: "absolute",
           top: 20,
           right: 20,
-          zIndex: 2,
+          zIndex: 3,
           padding: "10px 16px",
           borderRadius: 999,
           border: `1px solid ${activeTheme.ui.buttonBorder}`,
@@ -547,6 +617,7 @@ export default function ObjViewer() {
           color: activeTheme.ui.buttonText,
           boxShadow: activeTheme.ui.buttonGlow,
           backdropFilter: "blur(10px)",
+          textShadow: activeTheme.ui.buttonTextShadow,
           textTransform: "uppercase",
           letterSpacing: "0.1em",
           fontSize: 12,
