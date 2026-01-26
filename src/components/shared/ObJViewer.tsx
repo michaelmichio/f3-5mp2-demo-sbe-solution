@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 
@@ -13,7 +13,67 @@ const EDGE_ANGLE = 12;
 const DEBUG_ORIGIN = false;
 const OBJ_URL = "/assets/model/rondo1_model.obj";
 const TERRAIN_URL = "/assets/model/terrain_map.jpg";
-const FOG = { color: 0xffffff, near: 0, far: 120 };
+const THEMES = {
+  light: {
+    label: "Light",
+    ui: {
+      background: "#ffffff",
+      buttonBg: "rgba(255, 255, 255, 0.86)",
+      buttonText: "#0b0b0b",
+      buttonBorder: "rgba(0, 0, 0, 0.12)",
+      buttonGlow: "0 10px 24px rgba(0, 0, 0, 0.12)",
+    },
+    scene: {
+      clearColor: 0xffffff,
+      fog: { color: 0xffffff, near: 0, far: 120 },
+      toneMappingExposure: 1.05,
+    },
+    lights: {
+      ambient: { color: 0xffffff, intensity: 0.5 },
+      top: { color: 0xffffff, intensity: 3 },
+      sun: { color: 0xffffff, intensity: 4 },
+      rim: { color: 0xffffff, intensity: 0.15 },
+    },
+    materials: {
+      base: { color: 0xffffff, roughness: 0.98, metalness: 0, opacity: 1 },
+      hover: { color: 0x00c6af, roughness: 0.75, metalness: 0, opacity: 0.5 },
+      faint: { color: 0xffffff, roughness: 1, metalness: 0, opacity: 0.5 },
+      pencil: { color: 0x808080, opacity: 0.5 },
+      terrain: { color: 0xffffff, roughness: 1, metalness: 0 },
+    },
+  },
+  dark: {
+    label: "Neo Dark",
+    ui: {
+      background: "#070b10",
+      buttonBg: "rgba(8, 14, 20, 0.82)",
+      buttonText: "#e8f6ff",
+      buttonBorder: "rgba(94, 214, 255, 0.35)",
+      buttonGlow: "0 0 24px rgba(86, 214, 255, 0.4)",
+    },
+    scene: {
+      clearColor: 0x070b10,
+      fog: { color: 0x0b1118, near: 20, far: 140 },
+      toneMappingExposure: 1.2,
+    },
+    lights: {
+      ambient: { color: 0x6aa7ff, intensity: 0.18 },
+      top: { color: 0x5fd3ff, intensity: 1.4 },
+      sun: { color: 0x4aa6ff, intensity: 2.2 },
+      rim: { color: 0x7fe7ff, intensity: 0.6 },
+    },
+    materials: {
+      base: { color: 0x141a21, roughness: 0.72, metalness: 0.15, opacity: 1 },
+      hover: { color: 0x32ffd8, roughness: 0.4, metalness: 0.25, opacity: 0.85 },
+      faint: { color: 0x0a0f14, roughness: 0.9, metalness: 0.1, opacity: 0.35 },
+      pencil: { color: 0x3a5c6b, opacity: 0.55 },
+      terrain: { color: 0x0f141b, roughness: 1, metalness: 0 },
+    },
+  },
+} as const;
+
+type ThemeName = keyof typeof THEMES;
+type ThemeConfig = (typeof THEMES)[ThemeName];
 
 const isMesh = (obj: THREE.Object3D): obj is THREE.Mesh =>
   (obj as THREE.Mesh).isMesh === true;
@@ -26,10 +86,109 @@ const getMeshFromHit = (obj: THREE.Object3D | null): THREE.Mesh | null => {
 };
 
 export default function ObjViewer() {
-  const ref = useRef<HTMLDivElement>(null);
+  const [theme, setTheme] = useState<ThemeName>("light");
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const ambientLightRef = useRef<THREE.AmbientLight | null>(null);
+  const topLightRef = useRef<THREE.DirectionalLight | null>(null);
+  const sunLightRef = useRef<THREE.DirectionalLight | null>(null);
+  const rimLightRef = useRef<THREE.DirectionalLight | null>(null);
+  const baseMatRef = useRef<THREE.MeshStandardMaterial | null>(null);
+  const hoverMatRef = useRef<THREE.MeshStandardMaterial | null>(null);
+  const faintMatRef = useRef<THREE.MeshStandardMaterial | null>(null);
+  const pencilLineMatRef = useRef<THREE.LineBasicMaterial | null>(null);
+  const terrainMatRef = useRef<THREE.MeshStandardMaterial | null>(null);
+
+  const applyTheme = useCallback((nextTheme: ThemeConfig) => {
+    const scene = sceneRef.current;
+    const renderer = rendererRef.current;
+    if (!scene || !renderer) return;
+
+    scene.fog = new THREE.Fog(
+      nextTheme.scene.fog.color,
+      nextTheme.scene.fog.near,
+      nextTheme.scene.fog.far,
+    );
+    scene.background = new THREE.Color(nextTheme.scene.clearColor);
+
+    renderer.setClearColor(nextTheme.scene.clearColor, 1);
+    renderer.toneMappingExposure = nextTheme.scene.toneMappingExposure;
+
+    const ambient = ambientLightRef.current;
+    if (ambient) {
+      ambient.color.setHex(nextTheme.lights.ambient.color);
+      ambient.intensity = nextTheme.lights.ambient.intensity;
+    }
+
+    const top = topLightRef.current;
+    if (top) {
+      top.color.setHex(nextTheme.lights.top.color);
+      top.intensity = nextTheme.lights.top.intensity;
+    }
+
+    const sun = sunLightRef.current;
+    if (sun) {
+      sun.color.setHex(nextTheme.lights.sun.color);
+      sun.intensity = nextTheme.lights.sun.intensity;
+    }
+
+    const rim = rimLightRef.current;
+    if (rim) {
+      rim.color.setHex(nextTheme.lights.rim.color);
+      rim.intensity = nextTheme.lights.rim.intensity;
+    }
+
+    const baseMat = baseMatRef.current;
+    if (baseMat) {
+      baseMat.color.setHex(nextTheme.materials.base.color);
+      baseMat.roughness = nextTheme.materials.base.roughness;
+      baseMat.metalness = nextTheme.materials.base.metalness;
+      baseMat.opacity = nextTheme.materials.base.opacity;
+      baseMat.transparent = nextTheme.materials.base.opacity < 1;
+      baseMat.needsUpdate = true;
+    }
+
+    const hoverMat = hoverMatRef.current;
+    if (hoverMat) {
+      hoverMat.color.setHex(nextTheme.materials.hover.color);
+      hoverMat.roughness = nextTheme.materials.hover.roughness;
+      hoverMat.metalness = nextTheme.materials.hover.metalness;
+      hoverMat.opacity = nextTheme.materials.hover.opacity;
+      hoverMat.transparent = nextTheme.materials.hover.opacity < 1;
+      hoverMat.needsUpdate = true;
+    }
+
+    const faintMat = faintMatRef.current;
+    if (faintMat) {
+      faintMat.color.setHex(nextTheme.materials.faint.color);
+      faintMat.roughness = nextTheme.materials.faint.roughness;
+      faintMat.metalness = nextTheme.materials.faint.metalness;
+      faintMat.opacity = nextTheme.materials.faint.opacity;
+      faintMat.transparent = nextTheme.materials.faint.opacity < 1;
+      faintMat.needsUpdate = true;
+    }
+
+    const pencilMat = pencilLineMatRef.current;
+    if (pencilMat) {
+      pencilMat.color.setHex(nextTheme.materials.pencil.color);
+      pencilMat.opacity = nextTheme.materials.pencil.opacity;
+      pencilMat.transparent = nextTheme.materials.pencil.opacity < 1;
+      pencilMat.fog = true;
+      pencilMat.needsUpdate = true;
+    }
+
+    const terrainMat = terrainMatRef.current;
+    if (terrainMat) {
+      terrainMat.color.setHex(nextTheme.materials.terrain.color);
+      terrainMat.roughness = nextTheme.materials.terrain.roughness;
+      terrainMat.metalness = nextTheme.materials.terrain.metalness;
+      terrainMat.needsUpdate = true;
+    }
+  }, []);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = containerRef.current;
     if (!el) return;
 
     let disposed = false;
@@ -40,7 +199,6 @@ export default function ObjViewer() {
     });
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(FOG.color, FOG.near, FOG.far);
     const { width, height } = getSize();
 
     const camera = new THREE.PerspectiveCamera(
@@ -58,11 +216,9 @@ export default function ObjViewer() {
 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(width, height);
-    renderer.setClearColor(0xffffff, 0);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
     const canvas = renderer.domElement;
@@ -142,6 +298,20 @@ export default function ObjViewer() {
       metalness: 0,
       side: THREE.FrontSide,
     });
+
+    sceneRef.current = scene;
+    rendererRef.current = renderer;
+    ambientLightRef.current = ambientLight;
+    topLightRef.current = topLight;
+    sunLightRef.current = sunLight;
+    rimLightRef.current = rimLight;
+    baseMatRef.current = baseMat;
+    hoverMatRef.current = hoverMat;
+    faintMatRef.current = faintMat;
+    pencilLineMatRef.current = pencilLineMat;
+    terrainMatRef.current = terrainMat;
+
+    applyTheme(THEMES[theme]);
 
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2(-999, -999);
@@ -327,19 +497,73 @@ export default function ObjViewer() {
       if (canvas.parentElement === el) {
         el.removeChild(canvas);
       }
+
+      sceneRef.current = null;
+      rendererRef.current = null;
+      ambientLightRef.current = null;
+      topLightRef.current = null;
+      sunLightRef.current = null;
+      rimLightRef.current = null;
+      baseMatRef.current = null;
+      hoverMatRef.current = null;
+      faintMatRef.current = null;
+      pencilLineMatRef.current = null;
+      terrainMatRef.current = null;
     };
-  }, []);
+  }, [applyTheme]);
+
+  useEffect(() => {
+    applyTheme(THEMES[theme]);
+  }, [applyTheme, theme]);
+
+  const activeTheme = THEMES[theme];
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
 
   return (
     <div
-      ref={ref}
       style={{
         position: "fixed",
         inset: 0,
         width: "100vw",
         height: "100vh",
-        background: "transparent",
+        background: activeTheme.ui.background,
+        transition: "background-color 240ms ease",
       }}
-    />
+    >
+      <button
+        type="button"
+        onClick={toggleTheme}
+        aria-pressed={theme === "dark"}
+        style={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+          zIndex: 2,
+          padding: "10px 16px",
+          borderRadius: 999,
+          border: `1px solid ${activeTheme.ui.buttonBorder}`,
+          background: activeTheme.ui.buttonBg,
+          color: activeTheme.ui.buttonText,
+          boxShadow: activeTheme.ui.buttonGlow,
+          backdropFilter: "blur(10px)",
+          textTransform: "uppercase",
+          letterSpacing: "0.1em",
+          fontSize: 12,
+          fontWeight: 600,
+          cursor: "pointer",
+        }}
+      >
+        Theme: {activeTheme.label}
+      </button>
+      <div
+        ref={containerRef}
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
+        }}
+      />
+    </div>
   );
 }
