@@ -1421,7 +1421,7 @@ export default function VisionSection() {
     <SectionWrapper id="vision" containerSize="full">
       <div className="flex bg-[#052424] px-25 py-20 items-center text-center">
         <PolygonBackdrop />
-        <p className="mx-auto max-w-full w-300 text-[2rem] leading-[160%] text-white">
+        <p className="mx-auto max-w-full w-300 text-[1.25rem] lg:text-[2rem] leading-[160%] text-white">
           This is only the start. With an Al-native platform in place, Terminal
           helps operators take a critical step closer to the vision of a
           lights-out yard where agentic workflows enable autonomous edge

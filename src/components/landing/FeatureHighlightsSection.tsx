@@ -575,7 +575,7 @@ function FeatureHighlightCard({ item }: any) {
     <div className="flex px-14 py-12 items-start">
       <div className="">
         <div className="relative">
-          <img alt="" className="mb-6 aspect-square h-66" src={item.src} />
+          <img alt="" className="mb-6 aspect-square" src={item.src} />
           <div className="absolute bg-white inset-0 mix-blend-saturation" />
         </div>
         <h1 className="mb-[0.57rem] text-[1.80625rem] font-semibold leading-11">

@@ -189,7 +189,7 @@ export default function SolutionSection() {
     <SectionWrapper id="solution">
       <div className="py-36 flex flex-col gap-3 items-center text-center">
         <p className="text-[1.125rem] leading-[160%]">THE SOLUTION</p>
-        <p className="max-w-full w-165 mb-13.5 text-[4.25rem] leading-[120%] tracking-[-0.225rem]">
+        <p className="max-w-full w-165 mb-13.5 text-[3rem] lg:text-[4.25rem] leading-[120%] tracking-[-0.225rem]">
           Now You See It: Terminal Solves Visibility
         </p>
         <p className="max-w-full w-172 text-[1.125rem] leading-[140%] tracking-[0.0225rem] text-[#454742]">

@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="font-sans flex flex-col w-full overflow-hidden">
 
-      <ZoomScroll />
+      {/* <ZoomScroll /> */}
 
       {/* <HeroSection /> */}
 
