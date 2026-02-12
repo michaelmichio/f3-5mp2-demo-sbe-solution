@@ -20,11 +20,11 @@ export default function LifecycleSection() {
           commissioning, the DOE, and supervision.
         </p>
 
-        <div className="content-stretch flex gap-[40px] items-center justify-center relative shrink-0 w-[1340px]">
-          <p className="basis-0 font-medium grow leading-[1.4] min-h-px min-w-px relative shrink-0 text-[60px]">
+        <div className="content-stretch mt-12 flex flex-col lg:flex-row gap-[40px] items-center lg:justify-center relative shrink-0 lg:w-[1340px]">
+          <p className="basis-0 font-medium grow leading-[1.4] relative shrink-0 text-[40px] lg:text-[60px]">
             Capture. Analyze. Recommend.
           </p>
-          <div className="h-[753px] relative shrink-0 w-[698px]">
+          <div className="h-[753px] relative shrink-0 w-full lg:w-[698px]">
             <img
               alt=""
               className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full"

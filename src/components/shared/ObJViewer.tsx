@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 
 const CAMERA = { fov: 90, near: 0.1, far: 5000 };
-const ORBIT = { radius: 27, height: 5, speed: 0.001 };
+const ORBIT = { radius: 27, height: 5, speed: 0.0015 };
 const ORBIT_START_ANGLE = 0;
 const INTRO = { durationMs: 1800, height: 120, startOffsetZ: 0 };
 const PIVOT = { x: -3, y: 20, z: 3 };

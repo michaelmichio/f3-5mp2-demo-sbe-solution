@@ -3,12 +3,14 @@ import Image from "next/image";
 type BackgroundType = "image" | "video" | null;
 type ContainerSize = "default" | "wide" | "full";
 type SectionHeight = "default" | "full";
+type VerticalAlign = "default" | "start" | "center" | "end" | "stretch";
 
 interface SectionWrapperProps {
   id: string;
   dataHeaderTheme?: "light" | "dark";
   children?: React.ReactNode;
   backgroundType?: BackgroundType;
+  backgoundColorClass?: string;
   imageSrc?: string;
   imageAlt?: string;
   videoSrc?: string;
@@ -18,6 +20,7 @@ interface SectionWrapperProps {
   button?: React.ReactNode;
   containerSize?: ContainerSize;
   sectionHeight?: SectionHeight;
+  verticalAlign?: VerticalAlign;
 }
 
 const containerSizeClass: Record<ContainerSize, string> = {
@@ -31,23 +34,33 @@ const sectionHeightClass: Record<SectionHeight, string> = {
   full: "min-h-screen",
 };
 
+const verticalAlignClass: Record<VerticalAlign, string> = {
+  default: "items-center",
+  start: "items-start",
+  center: "items-center",
+  end: "items-end",
+  stretch: "items-stretch",
+};
+
 export default function SectionWrapper({
   id,
   dataHeaderTheme = "light",
   children = <></>,
   backgroundType = null,
+  backgoundColorClass = "",
   imageSrc = "",
   imageAlt = "",
   videoSrc = "",
   videoPoster = "",
   sectionHeight = "default",
   containerSize = "default",
+  verticalAlign = "default",
 }: SectionWrapperProps) {
   return (
     <section
       id={id}
       data-header-theme={dataHeaderTheme}
-      className={`relative overflow-hidden ${sectionHeightClass[sectionHeight]}`}
+      className={`relative overflow-hidden ${sectionHeightClass[sectionHeight]} ${backgoundColorClass}`}
     >
       {/* Background */}
       {/* {!backgroundType && (
@@ -81,8 +94,11 @@ export default function SectionWrapper({
       {backgroundType && <div className="absolute inset-0 bg-black/20" />}
 
       {/* vertical align wrapper */}
-      <div className={`flex ${sectionHeightClass[sectionHeight]} items-center`}>
+      <div
+        className={`flex ${sectionHeightClass[sectionHeight]} ${verticalAlignClass[verticalAlign]}`}
+      >
         {/* Container */}
+        {/* px-4 sm:px-6 md:px-12 lg:px-25 xl:px-32 */}
         <div
           className={`relative z-10 mx-auto w-full ${
             containerSizeClass[containerSize]

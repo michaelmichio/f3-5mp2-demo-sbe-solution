@@ -11,8 +11,6 @@ type RoleCardData = {
   title: string;
   subtitle: string;
   image: string;
-  containerClassName: string;
-  gradientClassName: string;
 };
 
 const roleCards: RoleCardData[] = [
@@ -20,46 +18,26 @@ const roleCards: RoleCardData[] = [
     title: "Integrator",
     subtitle: "System Integrators & BMS Companies",
     image: imgCard,
-    containerClassName:
-      "content-stretch flex flex-col h-[513px] items-end justify-between overflow-clip p-[32px] relative shrink-0 w-[425.333px]",
-    gradientClassName:
-      "absolute bg-gradient-to-b from-[rgba(24,22,22,0)] inset-0 to-[52.819%] to-[rgba(24,22,22,0.35)]",
   },
   {
     title: "Engineering",
     subtitle: "Design Office & Consultants",
     image: imgCard1,
-    containerClassName:
-      "content-stretch flex flex-col items-end justify-between overflow-clip p-[32px] relative self-stretch shrink-0 w-[425.333px]",
-    gradientClassName:
-      "absolute bg-gradient-to-b from-[rgba(24,22,22,0)] inset-0 to-[55.05%] to-[rgba(24,22,22,0.35)]",
   },
   {
     title: "Asset Manager",
     subtitle: "Real Estate Portfolio Managers",
     image: imgCard2,
-    containerClassName:
-      "content-stretch flex flex-col items-end justify-between overflow-clip p-[32px] relative self-stretch shrink-0 w-[425.333px]",
-    gradientClassName:
-      "absolute bg-gradient-to-b from-[rgba(24,22,22,0)] inset-0 to-[55.05%] to-[rgba(24,22,22,0.35)]",
   },
   {
     title: "Operator",
     subtitle: "Maintainers & Facility Managers",
     image: imgCard3,
-    containerClassName:
-      "content-stretch flex flex-col items-end justify-between overflow-clip p-[32px] relative self-stretch shrink-0 w-[425.333px]",
-    gradientClassName:
-      "absolute bg-gradient-to-b from-[rgba(24,22,22,0)] inset-0 to-[55.05%] to-[rgba(24,22,22,0.3)]",
   },
   {
     title: "Owner",
     subtitle: "Institutional Owners & Investors",
     image: imgCard4,
-    containerClassName:
-      "content-stretch flex flex-col items-end justify-between overflow-clip p-[32px] relative self-stretch shrink-0 w-[425.333px]",
-    gradientClassName:
-      "absolute bg-gradient-to-b from-[rgba(24,22,22,0)] inset-0 to-[55.05%] to-[rgba(24,22,22,0.3)]",
   },
 ];
 
@@ -84,22 +62,19 @@ function PlusIcon() {
   );
 }
 
-function RoleCard({
-  title,
-  subtitle,
-  image,
-  containerClassName,
-  gradientClassName,
-}: RoleCardData) {
+function RoleCard({ title, subtitle, image }: RoleCardData) {
   return (
-    <div className={containerClassName} data-name="card">
+    <div
+      className="content-stretch flex flex-col h-[513px] items-end justify-between overflow-clip p-[32px] relative shrink-0 w-[425.333px] max-w-full"
+      data-name="card"
+    >
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <img
           alt=""
           className="absolute max-w-none object-50%-50% object-cover size-full"
           src={image}
         />
-        <div className={gradientClassName} />
+        <div className="absolute bg-gradient-to-b from-[rgba(24,22,22,0)] inset-0 to-[52.819%] to-[rgba(24,22,22,0.35)]" />
       </div>
       <div className="backdrop-blur-[2px] backdrop-filter bg-[rgba(255,255,255,0.2)] content-stretch flex items-center p-[8px] relative rounded-[100px] shrink-0">
         <div

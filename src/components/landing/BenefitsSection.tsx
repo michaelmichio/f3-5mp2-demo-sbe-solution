@@ -20,7 +20,7 @@ function BenefitsHeader() {
             THE BENEFITS
           </p>
           <div
-            className="content-stretch flex flex-col font-['Schibsted_Grotesk:Regular',sans-serif] font-normal items-start leading-[0] relative shrink-0 text-[#052424] text-[48px] text-nowrap tracking-[-0.613px] w-full"
+            className="content-stretch flex flex-col font-['Schibsted_Grotesk:Regular',sans-serif] font-normal items-start leading-[0] relative shrink-0 text-[#052424] text-[1.75rem] lg:text-[48px] text-nowrap tracking-[-0.613px] w-full"
             data-name="Header - The Operational Benefits of Real-Time Visibility ƒ+' Heading 2"
           >
             <div className="flex flex-col justify-center relative shrink-0">
@@ -64,163 +64,48 @@ function BenefitsBackground() {
 
 function BenefitCardDecision() {
   return (
-    <div
-      className="content-stretch flex flex-col items-start justify-center relative size-full"
-      data-name="Article"
-    >
-      <div className="absolute inset-[0_0.03px_8.1px_0]" data-name="SVG" />
-      <div
-        className="basis-0 grow min-h-px min-w-px relative shrink-0 w-full"
-        data-name="Mask Group"
-      >
-        <div
-          className="absolute backdrop-blur-[2.5px] backdrop-filter bg-[rgba(255,255,255,0.2)] content-stretch flex flex-col inset-[0_0.03px_-0.04px_0] items-start mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0%] mask-size-[100%_99.98%] rounded-[20px] shadow-[0px_4px_30px_0px_rgba(0,0,0,0.1)]"
-          data-name="Overlay+Shadow+OverlayBlur"
-          style={{ maskImage: `url('${imgOverlayShadowOverlayBlur}')` }}
-        >
-          <div
-            className="aspect-[398.06/291.78] content-stretch flex flex-col gap-[24.01px] items-center pb-[57.91px] pl-[47.29px] pr-[44.7px] pt-[56.32px] relative shrink-0"
-            data-name="Container"
-          >
-            <div
-              className="content-stretch flex flex-col items-start relative shrink-0 w-[304.82px]"
-              data-name="Heading 3"
-            >
-              <div className="flex flex-col font-['Schibsted_Grotesk:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[24px] text-nowrap text-white tracking-[-0.4px]">
-                <p className="leading-[normal]">Smarter Decision-Making</p>
-              </div>
-            </div>
-            <div
-              className="font-['Schibsted_Grotesk:Regular',sans-serif] font-normal h-[127.63px] leading-[0] relative shrink-0 text-[#c2c2c2] tracking-[0.36px] w-full"
-              data-name="Paragraph"
-            >
-              <div className="absolute flex flex-col h-[51px] justify-center leading-[24px] left-[-0.02px] text-[17.4px] top-[25.26px] translate-y-[-50%] w-[306.491px]">
-                <p className="mb-0">Executives and managers gain</p>
-                <p>immediate access to accurate data,</p>
-              </div>
-              <div className="absolute flex flex-col h-[26px] justify-center left-[-0.68px] text-[17.6px] top-[63.39px] translate-y-[-50%] w-[247.88px]">
-                <p className="leading-[25.2px]">
-                  enabling strategic decisions,
-                </p>
-              </div>
-              <div className="absolute flex flex-col h-[51px] justify-center leading-[24px] left-[-1.01px] text-[17.3px] top-[101.83px] translate-y-[-50%] w-[229.831px]">
-                <p className="mb-0">workflow optimization, and</p>
-                <p>proactive issue resolution.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="bg-white/20 px-6 py-4 lg:p-12 rounded-4xl flex flex-col gap-2 lg:gap-8">
+      <p className="text-[1.125rem] lg:text-[24px] text-white">
+        Smarter Decision-Making
+      </p>
+
+      <p className="text-[0.875rem] lg:text-[18px] text-[#c2c2c2]">
+        Executives and managers gain immediate access to accurate data, enabling
+        strategic decisions, workflow optimization, and proactive issue
+        resolution.
+      </p>
     </div>
   );
 }
 
 function BenefitCardEfficiency() {
   return (
-    <div
-      className="content-stretch flex flex-col items-start justify-center relative size-full"
-      data-name="Article"
-    >
-      <div className="absolute inset-[0_-0.01px_-1.84px_0]" data-name="SVG" />
-      <div
-        className="basis-0 grow min-h-px min-w-px relative shrink-0 w-full"
-        data-name="Mask Group"
-      >
-        <div
-          className="absolute backdrop-blur-[2.5px] backdrop-filter bg-[rgba(255,255,255,0.2)] content-stretch flex flex-col inset-[0_-0.01px_-0.01px_0] items-start mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0%] mask-size-[100%_100%] rounded-[20px] shadow-[0px_4px_30px_0px_rgba(0,0,0,0.1)]"
-          data-name="Overlay+Shadow+OverlayBlur"
-          style={{ maskImage: `url('${imgOverlayShadowOverlayBlur1}')` }}
-        >
-          <div
-            className="aspect-[408.46/289.28] content-stretch flex flex-col gap-[24.25px] items-center pb-[55.54px] pl-[49.91px] pr-[48.57px] pt-[57.33px] relative shrink-0"
-            data-name="Container"
-          >
-            <div
-              className="content-stretch flex flex-col items-start relative shrink-0 w-full"
-              data-name="Heading 3"
-            >
-              <div className="flex flex-col font-['Schibsted_Grotesk:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[24px] text-white tracking-[-0.4px] w-full">
-                <p className="leading-[normal]">Operational Efficiency</p>
-              </div>
-            </div>
-            <div
-              className="font-['Schibsted_Grotesk:Regular',sans-serif] font-normal h-[125.77px] leading-[0] relative shrink-0 text-[#c2c2c2] tracking-[0.36px] w-[308.73px]"
-              data-name="Paragraph"
-            >
-              <div className="absolute flex flex-col h-[26px] justify-center left-[0.03px] text-[17.6px] top-[12.59px] translate-y-[-50%] w-[274.55px]">
-                <p className="leading-[24px]">
-                  Frontline teams and operational
-                </p>
-              </div>
-              <div className="absolute flex flex-col h-[26px] justify-center left-[0.34px] text-[17.4px] top-[37.9px] translate-y-[-50%] w-[301.72px]">
-                <p className="leading-[24px]">
-                  managers can track assets, reduce
-                </p>
-              </div>
-              <div className="absolute flex flex-col h-[26px] justify-center left-[0.66px] text-[17.4px] top-[63.1px] translate-y-[-50%] w-[282.76px]">
-                <p className="leading-[25.2px]">
-                  bottlenecks, and streamline daily
-                </p>
-              </div>
-              <div className="absolute flex flex-col h-[26px] justify-center left-[0.97px] text-[17.3px] top-[88.19px] translate-y-[-50%] w-[270.89px]">
-                <p className="leading-[24px]">
-                  activities, improving throughput
-                </p>
-              </div>
-              <div className="absolute flex flex-col h-[26px] justify-center left-[1.29px] text-[16.7px] top-[113.19px] translate-y-[-50%] w-[91.74px]">
-                <p className="leading-[24px]">and safety.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="bg-white/20 px-6 py-4 lg:p-12 rounded-4xl flex flex-col gap-2 lg:gap-8">
+      <p className="text-[1.125rem] lg:text-[24px] text-white">
+        Operational Efficiency
+      </p>
+
+      <p className="text-[0.875rem] lg:text-[18px] text-[#c2c2c2]">
+        Frontline teams and operational managers can track assets, reduce
+        bottlenecks, and streamline daily activities, improving throughput and
+        safety.
+      </p>
     </div>
   );
 }
 
 function BenefitCardPerformance() {
   return (
-    <div
-      className="absolute content-stretch flex flex-col inset-[254.34px_70.75px_253.47px_966.45px] items-start justify-center"
-      data-name="Article"
-    >
-      <div className="absolute inset-[0_0_1.02px_0]" data-name="SVG" />
-      <div
-        className="basis-0 grow min-h-px min-w-px relative shrink-0 w-full"
-        data-name="Mask Group"
-      >
-        <div
-          className="absolute backdrop-blur-[2.5px] backdrop-filter bg-[rgba(255,255,255,0.2)] content-stretch flex flex-col inset-[0_0_0.01px_0] items-start mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0%] mask-size-[100%_100%] rounded-[20px] shadow-[0px_4px_30px_0px_rgba(0,0,0,0.1)]"
-          data-name="Overlay+Shadow+OverlayBlur"
-          style={{ maskImage: `url('${imgOverlayShadowOverlayBlur2}')` }}
-        >
-          <div
-            className="aspect-[402.8/288.1] content-stretch flex flex-col gap-[23.96px] items-start px-[48px] py-[56px] relative shrink-0"
-            data-name="Container"
-          >
-            <div
-              className="content-stretch flex flex-col items-start relative shrink-0 w-full"
-              data-name="Heading 3"
-            >
-              <div className="flex flex-col font-['Schibsted_Grotesk:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[24px] text-white tracking-[-0.4px] w-full">
-                <p className="leading-[normal]">Improved Performance</p>
-              </div>
-            </div>
-            <div
-              className="content-stretch flex flex-col items-start relative shrink-0 w-[307.76px]"
-              data-name="Container"
-            >
-              <div className="flex flex-col font-['Schibsted_Grotesk:Regular',sans-serif] font-normal justify-center leading-[24px] relative shrink-0 text-[#c2c2c2] text-[17.4px] text-nowrap tracking-[0.36px]">
-                <p className="mb-0">Real-time data improves asset</p>
-                <p className="mb-0">utilization, reduces costs, supports</p>
-                <p className="mb-0">accurate forecasting, and enables</p>
-                <p className="mb-0">automation and advanced analytics</p>
-                <p>initiatives.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="bg-white/20 px-6 py-4 lg:p-12 rounded-4xl flex flex-col gap-2 lg:gap-8">
+      <p className="text-[1.125rem] lg:text-[24px] text-white">
+        Improved Performance
+      </p>
+
+      <p className="text-[0.875rem] lg:text-[18px] text-[#c2c2c2]">
+        Real-time data improves asset utilization, reduces costs, supports
+        accurate forecasting, and enables automation and advanced analytics
+        initiatives.
+      </p>
     </div>
   );
 }
@@ -306,9 +191,9 @@ export default function BenefitsSection() {
               </div>
 
               <div className="h-[795.94px]">
-                <div className="absolute grid grid-cols-1 md:grid-cols-3 gap-10 w-full max-w-7xl mx-auto inset-[250px_0_250px_0px] items-center justify-center">
+                <div className="px-8 absolute grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 w-full max-w-7xl mx-auto inset-[150px_0_250px_0px] lg:inset-[250px_0_250px_0px] items-center justify-center">
                   <BenefitCardDecision />
-                  <BenefitCardDecision />
+                  <BenefitCardEfficiency />
                   <BenefitCardDecision />
                 </div>
               </div>
